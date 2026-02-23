@@ -574,6 +574,25 @@ footer{
 .admin-login-sub{font-size:0.8rem;color:var(--text-muted);margin-bottom:28px;}
 .admin-error{color:#ff5050;font-size:0.75rem;margin-top:8px;display:none;}
 .full-col{grid-column:1/-1;}
+
+/* Resume request readability */
+.resume-request-form .form-label{
+  font-family:"Orbitron",monospace;
+  font-size:0.78rem;
+  letter-spacing:1px;
+  color:#dff8ff;
+}
+.resume-request-form .form-input{
+  font-family:"Rajdhani",sans-serif;
+  font-size:1rem;
+  color:#ffffff;
+  background:rgba(8,15,30,0.9);
+  border:1px solid rgba(0,245,255,0.4);
+}
+.resume-request-form .form-input::placeholder{
+  color:#9ec2e6;
+  opacity:1;
+}
 </style>
 </head>
 <body>
@@ -590,7 +609,7 @@ footer{
     <li><a href="#contact">Contact</a></li>
   </ul>
   <div style="display:flex;gap:12px;align-items:center;">
-    <a href="SanjayNathan_Resumee.pdf" download class="nav-resume">⬇ Resume</a>
+    <a href="#resume-request-form" class="nav-resume">⬇ Request Resume</a>
     <button onclick="openAdmin()" style="background:transparent;border:1px solid var(--dark-border);color:var(--text-muted);font-family:Share Tech Mono,monospace;font-size:0.65rem;letter-spacing:2px;padding:8px 14px;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.borderColor=\'var(--neon-cyan)\';this.style.color=\'var(--neon-cyan)\';" onmouseout="this.style.borderColor=\'var(--dark-border)\';this.style.color=\'var(--text-muted)\';">⚙ ADMIN</button>
   </div>
 </nav>
@@ -635,7 +654,7 @@ footer{
         <div class="info-item"><div class="info-label">Location</div><div class="info-value">Melbourne, AU</div></div>
         <div class="info-item"><div class="info-label">Status</div><div class="info-value" style="color:var(--neon-green)">Available</div></div>
         <div class="info-item"><div class="info-label">Education</div><div class="info-value">B.IT – SLIIT</div></div>
-        <div class="info-item"><div class="info-label">Email</div><div class="info-value" style="font-size:0.78rem">sanjujay112@gmail.com</div></div>
+        <div class="info-item"><div class="info-label">Contact</div><div class="info-value" style="font-size:0.78rem">Use contact form</div></div>
       </div>
     </div>
     <div class="fade-in" style="transition-delay:0.15s">
@@ -860,11 +879,15 @@ footer{
     <div class="fade-in">
       <p>I'm actively seeking onsite Desktop Support opportunities within enterprise and managed services environments in Melbourne. Feel free to reach out — I'd love to connect.</p>
       <div class="contact-links">
-        <a href="mailto:sanjujay112@gmail.com" class="contact-link">📧 sanjujay112@gmail.com</a>
-        <a href="tel:+61459662927" class="contact-link">📞 0459 662 927</a>
         <a href="https://linkedin.com/in/sanjay-sathiyanathan" target="_blank" class="contact-link">🔗 linkedin.com/in/sanjay-sathiyanathan</a>
-        <a href="SanjayNathan_Resumee.pdf" download class="contact-link" style="color:var(--neon-cyan)">⬇ Download Resume (PDF)</a>
+        <a href="#resume-request-form" class="contact-link" style="color:var(--neon-cyan)">⬇ Request Resume</a>
       </div>
+      <form class="cform resume-request-form" id="resume-request-form" onsubmit="submitResumeRequest(event)" style="margin-top:20px;">
+        <div class="form-group"><label class="form-label">Name (for resume request)</label><input class="form-input" id="rr-name" type="text" placeholder="Jane Smith" required/></div>
+        <div class="form-group"><label class="form-label">Email (to receive resume)</label><input class="form-input" id="rr-email" type="email" placeholder="jane@company.com" required/></div>
+        <button type="submit" class="btn-secondary" style="width:100%;justify-content:center;">Request Resume</button>
+        <p class="form-msg" id="resume-msg">✓ Resume request submitted.</p>
+      </form>
     </div>
     <div class="fade-in" style="transition-delay:0.15s">
       <form class="cform" onsubmit="handleSubmit(event)">
@@ -883,9 +906,8 @@ footer{
 <footer>
   <div class="footer-text">© 2025 Sanjay Sathiyanathan · Melbourne, AU</div>
   <div class="footer-links">
-    <a href="mailto:sanjujay112@gmail.com">Email</a>
     <a href="https://linkedin.com/in/sanjay-sathiyanathan" target="_blank">LinkedIn</a>
-    <a href="SanjayNathan_Resumee.pdf" download>Resume</a>
+    <a href="#resume-request-form">Request Resume</a>
     <a href="#" onclick="openAdmin();return false;">Admin</a>
   </div>
 </footer>
@@ -908,7 +930,7 @@ footer{
         <button class="admin-btn" onclick="closeAdmin()" style="border-color:var(--dark-border);color:var(--text-muted);">Cancel</button>
       </div>
       <div class="admin-error" id="admin-error">✗ Incorrect password</div>
-      <div style="margin-top:16px;font-family:Share Tech Mono,monospace;font-size:0.6rem;color:var(--text-muted);text-align:center;">Default password: <span style="color:var(--neon-cyan)">sanjay2025</span></div>
+      <div style="margin-top:16px;font-family:Share Tech Mono,monospace;font-size:0.6rem;color:var(--text-muted);text-align:center;">Use your private admin password</div>
     </div>
   </div>
 
@@ -920,6 +942,7 @@ footer{
         <div style="display:flex;gap:10px;align-items:center;">
           <span style="font-family:Share Tech Mono,monospace;font-size:0.65rem;color:var(--neon-green);">● LOGGED IN</span>
           <button class="admin-btn success" onclick="saveAllData()">💾 SAVE ALL</button>
+          <button class="admin-btn danger" onclick="logoutAdmin()">↩ LOGOUT</button>
           <button class="admin-close" onclick="closeAdmin()">✕ CLOSE</button>
         </div>
       </div>
@@ -928,14 +951,15 @@ footer{
       <div class="admin-stat-grid">
         <div class="admin-stat"><div class="admin-stat-n" id="stat-projects">4</div><div class="admin-stat-l">Projects</div></div>
         <div class="admin-stat"><div class="admin-stat-n" id="stat-articles">3</div><div class="admin-stat-l">Articles</div></div>
-        <div class="admin-stat"><div class="admin-stat-n">8</div><div class="admin-stat-l">Certifications</div></div>
-        <div class="admin-stat"><div class="admin-stat-n">5</div><div class="admin-stat-l">Roles</div></div>
+        <div class="admin-stat"><div class="admin-stat-n" id="stat-views">0</div><div class="admin-stat-l">Site Views</div></div>
+        <div class="admin-stat"><div class="admin-stat-n" id="stat-resume-requests">0</div><div class="admin-stat-l">Resume Requests</div></div>
       </div>
 
       <!-- TABS -->
       <div class="admin-tabs">
         <button class="admin-tab active" onclick="switchTab('projects',this)">📁 Projects</button>
         <button class="admin-tab" onclick="switchTab('articles',this)">📝 Articles</button>
+        <button class="admin-tab" onclick="switchTab('resume',this)">📄 Resume Requests</button>
         <button class="admin-tab" onclick="switchTab('linkedin',this)">🔗 LinkedIn</button>
         <button class="admin-tab" onclick="switchTab('settings',this)">⚙ Settings</button>
         <button class="admin-tab" onclick="switchTab('guide',this)">📖 How To Use</button>
@@ -996,6 +1020,12 @@ footer{
         </div>
       </div>
 
+      <!-- TAB: RESUME REQUESTS -->
+      <div class="admin-section" id="tab-resume">
+        <div class="admin-notice"><strong>Resume Requests</strong> — Visitors can request your resume using name and email. Approve to open your mail app pre-addressed to the requester, then attach your latest resume and send.</div>
+        <div class="items-list" id="admin-resume-requests-list"></div>
+      </div>
+
       <!-- TAB: LINKEDIN -->
       <div class="admin-section" id="tab-linkedin">
         <div class="admin-notice"><strong>LinkedIn Integration</strong> — How to get your article links from LinkedIn and add them to your portfolio.</div>
@@ -1041,7 +1071,9 @@ footer{
           <div class="admin-field"><label class="admin-label">Phone</label><input class="admin-input" id="s-phone" value="0459 662 927"/></div>
           <div class="admin-field"><label class="admin-label">Location</label><input class="admin-input" id="s-location" value="Melbourne, AU"/></div>
           <div class="admin-field"><label class="admin-label">LinkedIn URL</label><input class="admin-input" id="s-linkedin" value="https://linkedin.com/in/sanjay-sathiyanathan"/></div>
-          <div class="admin-field"><label class="admin-label">Change Admin Password</label><input class="admin-input" type="password" id="s-pwd" placeholder="Leave blank to keep current"/></div>
+          <div class="admin-field"><label class="admin-label">Current Admin Password</label><input class="admin-input" type="password" id="s-current-pwd" placeholder="Required to change password"/></div>
+          <div class="admin-field"><label class="admin-label">New Admin Password</label><input class="admin-input" type="password" id="s-new-pwd" placeholder="Min 10 chars with upper/lower/number/symbol"/></div>
+          <div class="admin-field"><label class="admin-label">Confirm New Password</label><input class="admin-input" type="password" id="s-confirm-pwd" placeholder="Re-enter new password"/></div>
           <div class="admin-field"><label class="admin-label">Availability Status</label>
             <select class="admin-select" id="s-status">
               <option value="available">🟢 Available for hire</option>
@@ -1118,10 +1150,22 @@ footer{
 const STORE_KEY = "ss_portfolio_v1";
 const ADMIN_PWD_KEY = "ss_admin_pwd";
 const DEFAULT_HERO_PHOTO = (document.getElementById("hero-photo") || {}).src || "";
+const LOGIN_ATTEMPTS_KEY = "ss_admin_login_attempts";
+const LOGIN_LOCK_UNTIL_KEY = "ss_admin_login_lock_until";
+const VISIT_COUNT_KEY = "ss_site_views_total";
+const VISIT_SESSION_KEY = "ss_site_viewed_session";
+const MAX_LOGIN_ATTEMPTS = 5;
+const LOCKOUT_MS = 5 * 60 * 1000;
+const ADMIN_IDLE_TIMEOUT_MS = 15 * 60 * 1000;
 
 function getStore() {
   try {
-    return JSON.parse(localStorage.getItem(STORE_KEY)) || getDefaultStore();
+    const parsed = JSON.parse(localStorage.getItem(STORE_KEY)) || getDefaultStore();
+    if (!Array.isArray(parsed.projects)) parsed.projects = [];
+    if (!Array.isArray(parsed.articles)) parsed.articles = [];
+    if (!Array.isArray(parsed.resumeRequests)) parsed.resumeRequests = [];
+    if (!parsed.settings || typeof parsed.settings !== "object") parsed.settings = {};
+    return parsed;
   } catch(e) { return getDefaultStore(); }
 }
 
@@ -1131,6 +1175,67 @@ function saveStore(data) {
 
 function getAdminPwd() {
   return localStorage.getItem(ADMIN_PWD_KEY) || "sanjay2025";
+}
+
+function escapeHtml(value) {
+  return String(value || "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function sanitizeText(value, maxLen) {
+  return String(value || "").replace(/\s+/g, " ").trim().slice(0, maxLen);
+}
+
+function isSafeUrl(value) {
+  try {
+    const u = new URL(value);
+    return u.protocol === "https:";
+  } catch (e) {
+    return false;
+  }
+}
+
+function isStrongPassword(value) {
+  return (
+    value.length >= 10 &&
+    /[a-z]/.test(value) &&
+    /[A-Z]/.test(value) &&
+    /\d/.test(value) &&
+    /[^A-Za-z0-9]/.test(value)
+  );
+}
+
+function isValidEmail(value) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(value || "").trim());
+}
+
+function clearLoginProtectionState() {
+  localStorage.removeItem(LOGIN_ATTEMPTS_KEY);
+  localStorage.removeItem(LOGIN_LOCK_UNTIL_KEY);
+}
+
+function getLockState() {
+  const lockedUntil = Number(localStorage.getItem(LOGIN_LOCK_UNTIL_KEY) || "0");
+  const attempts = Number(localStorage.getItem(LOGIN_ATTEMPTS_KEY) || "0");
+  const now = Date.now();
+  if (lockedUntil > now) return { locked: true, remainingMs: lockedUntil - now };
+  if (lockedUntil && lockedUntil <= now) clearLoginProtectionState();
+  return { locked: false, attempts };
+}
+
+function registerFailedLogin() {
+  const nowAttempts = Number(localStorage.getItem(LOGIN_ATTEMPTS_KEY) || "0") + 1;
+  if (nowAttempts >= MAX_LOGIN_ATTEMPTS) {
+    localStorage.setItem(LOGIN_ATTEMPTS_KEY, "0");
+    localStorage.setItem(LOGIN_LOCK_UNTIL_KEY, String(Date.now() + LOCKOUT_MS));
+    return { locked: true };
+  }
+  localStorage.setItem(LOGIN_ATTEMPTS_KEY, String(nowAttempts));
+  return { locked: false, attempts: nowAttempts };
 }
 
 function applyProfilePhoto(src) {
@@ -1191,6 +1296,7 @@ function getDefaultStore() {
       { id:2, title:"How I Reduced Infrastructure Downtime by 60% with Zabbix & Nagios", url:"https://www.linkedin.com/in/sanjay-sathiyanathan/", tag:"Monitoring", year:"2024", excerpt:"Real-world experience deploying infrastructure monitoring tools in a telco environment — what worked, what didn't, and key lessons learned..." },
       { id:3, title:"From Sri Lanka to Melbourne: My IT Career Journey & Key Lessons", url:"https://www.linkedin.com/in/sanjay-sathiyanathan/", tag:"Career", year:"2025", excerpt:"Reflecting on 5+ years in IT support across two continents — skills that matter, certifications worth pursuing, and advice for aspiring IT professionals..." }
     ],
+    resumeRequests: [],
     settings: {
       name:"Sanjay Sathiyanathan",
       title:"Desktop Support Engineer",
@@ -1211,36 +1317,58 @@ function renderProjects() {
   const store = getStore();
   const grid = document.getElementById("projects-grid");
   if (!grid) return;
-  grid.innerHTML = store.projects.map((p,i) => `
+  grid.innerHTML = store.projects.map((p,i) => {
+    const status = p.status === "done" ? "done" : p.status === "wip" ? "wip" : "plan";
+    const title = escapeHtml(p.title);
+    const desc = escapeHtml(p.desc);
+    const tools = String(p.tools || "").split(",").map(t=>`<span class="tool-tag">${escapeHtml(t.trim())}</span>`).join("");
+    return `
     <div class="proj-card fade-in on" style="transition-delay:${i*0.1}s">
       <div class="proj-num">0${i+1}</div>
-      <div class="proj-status ${p.status}"><span>●</span> ${p.status==="done"?"Completed":p.status==="wip"?"In Progress":"Planned"}</div>
-      <div class="proj-title">${p.title}</div>
-      <p class="proj-desc">${p.desc}</p>
-      <div class="proj-tools">${p.tools.split(",").map(t=>`<span class="tool-tag">${t.trim()}</span>`).join("")}</div>
-    </div>`).join("");
+      <div class="proj-status ${status}"><span>●</span> ${status==="done"?"Completed":status==="wip"?"In Progress":"Planned"}</div>
+      <div class="proj-title">${title}</div>
+      <p class="proj-desc">${desc}</p>
+      <div class="proj-tools">${tools}</div>
+    </div>`;
+  }).join("");
 }
 
 function renderArticles() {
   const store = getStore();
   const grid = document.getElementById("articles-grid");
   if (!grid) return;
-  grid.innerHTML = store.articles.map((a,i) => `
-    <a class="article-card fade-in on" href="${a.url}" target="_blank" rel="noopener" style="transition-delay:${i*0.1}s">
-      <div class="article-tag">LinkedIn Article · ${a.tag}</div>
-      <div class="article-title">${a.title}</div>
-      <div class="article-excerpt">${a.excerpt}</div>
+  grid.innerHTML = store.articles.map((a,i) => {
+    const url = isSafeUrl(a.url) ? a.url : "#";
+    return `
+    <a class="article-card fade-in on" href="${url}" target="_blank" rel="noopener" style="transition-delay:${i*0.1}s">
+      <div class="article-tag">LinkedIn Article · ${escapeHtml(a.tag)}</div>
+      <div class="article-title">${escapeHtml(a.title)}</div>
+      <div class="article-excerpt">${escapeHtml(a.excerpt)}</div>
       <div class="article-meta">
-        <span>${a.year}</span>
+        <span>${escapeHtml(a.year)}</span>
         <span class="read-more">Read on LinkedIn →</span>
       </div>
-    </a>`).join("");
+    </a>`;
+  }).join("");
 }
 
 // ══════════════════════════════════
 // ADMIN — AUTH
 // ══════════════════════════════════
 let adminLoggedIn = false;
+let adminIdleTimer = null;
+
+function resetAdminIdleTimer() {
+  if (!adminLoggedIn) return;
+  if (adminIdleTimer) clearTimeout(adminIdleTimer);
+  adminIdleTimer = setTimeout(() => {
+    adminLoggedIn = false;
+    closeAdmin();
+    document.getElementById("admin-dashboard").style.display = "none";
+    document.getElementById("admin-login-screen").style.display = "block";
+    showToast("Admin session expired. Please log in again.");
+  }, ADMIN_IDLE_TIMEOUT_MS);
+}
 
 function openAdmin() {
   document.getElementById("admin-panel").classList.add("open");
@@ -1250,11 +1378,37 @@ function openAdmin() {
 
 function closeAdmin() {
   document.getElementById("admin-panel").classList.remove("open");
+  if (adminIdleTimer) {
+    clearTimeout(adminIdleTimer);
+    adminIdleTimer = null;
+  }
+}
+
+function logoutAdmin() {
+  adminLoggedIn = false;
+  if (adminIdleTimer) {
+    clearTimeout(adminIdleTimer);
+    adminIdleTimer = null;
+  }
+  document.getElementById("admin-dashboard").style.display = "none";
+  document.getElementById("admin-login-screen").style.display = "block";
+  document.getElementById("admin-pwd").value = "";
+  document.getElementById("admin-error").style.display = "none";
+  showToast("Logged out.");
 }
 
 function doLogin() {
+  const lockState = getLockState();
+  if (lockState.locked) {
+    const secs = Math.ceil(lockState.remainingMs / 1000);
+    document.getElementById("admin-error").textContent = `Too many failed attempts. Try again in ${secs}s.`;
+    document.getElementById("admin-error").style.display = "block";
+    return;
+  }
+
   const pwd = document.getElementById("admin-pwd").value;
   if (pwd === getAdminPwd()) {
+    clearLoginProtectionState();
     adminLoggedIn = true;
     document.getElementById("admin-login-screen").style.display = "none";
     document.getElementById("admin-dashboard").style.display = "block";
@@ -1265,8 +1419,14 @@ function doLogin() {
     if (photoInput) photoInput.value = "";
     renderAdminProjects();
     renderAdminArticles();
+    renderAdminResumeRequests();
     updateAdminStats();
+    resetAdminIdleTimer();
   } else {
+    const failState = registerFailedLogin();
+    document.getElementById("admin-error").textContent = failState.locked
+      ? "Too many failed attempts. Login locked for 5 minutes."
+      : `Incorrect password (${MAX_LOGIN_ATTEMPTS - failState.attempts} attempts left).`;
     document.getElementById("admin-error").style.display = "block";
     document.getElementById("admin-pwd").style.borderColor = "#ff5050";
     setTimeout(()=>document.getElementById("admin-pwd").style.borderColor="",1500);
@@ -1291,17 +1451,23 @@ let editingProjectId = null;
 function renderAdminProjects() {
   const store = getStore();
   const list = document.getElementById("admin-projects-list");
-  list.innerHTML = store.projects.map(p => `
+  list.innerHTML = store.projects.map(p => {
+    const status = p.status === "done" ? "done" : p.status === "wip" ? "wip" : "plan";
+    const title = escapeHtml(p.title);
+    const tools = String(p.tools || "").split(",").map(x => x.trim()).filter(Boolean);
+    const shortTools = escapeHtml(tools.slice(0,3).join(", ")) + (tools.length > 3 ? "..." : "");
+    return `
     <div class="item-row">
       <div class="item-row-info">
-        <div class="item-row-title">${p.title}</div>
-        <div class="item-row-meta"><span class="status-badge ${p.status==="done"?"badge-done":p.status==="wip"?"badge-wip":"badge-plan"}">${p.status==="done"?"Completed":p.status==="wip"?"In Progress":"Planned"}</span> &nbsp;${p.tools.split(",").slice(0,3).join(", ")}${p.tools.split(",").length>3?"...":""}</div>
+        <div class="item-row-title">${title}</div>
+        <div class="item-row-meta"><span class="status-badge ${status==="done"?"badge-done":status==="wip"?"badge-wip":"badge-plan"}">${status==="done"?"Completed":status==="wip"?"In Progress":"Planned"}</span> &nbsp;${shortTools}</div>
       </div>
       <div class="item-row-actions">
         <button class="admin-btn" style="padding:6px 14px;font-size:0.62rem;border-color:var(--neon-cyan);color:var(--neon-cyan);" onclick="editProject(${p.id})">✏ Edit</button>
         <button class="admin-btn danger" style="padding:6px 14px;font-size:0.62rem;" onclick="deleteProject(${p.id})">✕ Del</button>
       </div>
-    </div>`).join("") || "<div style=\"color:var(--text-muted);font-size:0.82rem;padding:14px;\">No projects yet. Add your first project above.</div>";
+    </div>`;
+  }).join("") || "<div style=\"color:var(--text-muted);font-size:0.82rem;padding:14px;\">No projects yet. Add your first project above.</div>";
   updateAdminStats();
 }
 
@@ -1331,15 +1497,20 @@ function editProject(id) {
 }
 
 function saveProject() {
-  const title = document.getElementById("pf-title").value.trim();
+  const title = sanitizeText(document.getElementById("pf-title").value, 120);
+  const desc = sanitizeText(document.getElementById("pf-desc").value, 700);
+  const rawTools = document.getElementById("pf-tools").value;
+  const tools = rawTools.split(",").map(t => sanitizeText(t, 30)).filter(Boolean).slice(0, 20).join(",");
   if (!title) { alert("Please enter a project title."); return; }
+  if (!desc) { alert("Please enter a project description."); return; }
+  if (!tools) { alert("Please enter at least one tool/tag."); return; }
   const store = getStore();
   const proj = {
     id: editingProjectId || Date.now(),
     title,
     status: document.getElementById("pf-status").value,
-    desc: document.getElementById("pf-desc").value.trim(),
-    tools: document.getElementById("pf-tools").value.trim()
+    desc,
+    tools
   };
   if (editingProjectId) {
     const idx = store.projects.findIndex(x=>x.id===editingProjectId);
@@ -1372,17 +1543,21 @@ let editingArticleId = null;
 function renderAdminArticles() {
   const store = getStore();
   const list = document.getElementById("admin-articles-list");
-  list.innerHTML = store.articles.map(a => `
+  list.innerHTML = store.articles.map(a => {
+    const safeUrl = isSafeUrl(a.url) ? a.url : "#";
+    const urlText = safeUrl.length > 50 ? safeUrl.substring(0,50) + "..." : safeUrl;
+    return `
     <div class="item-row">
       <div class="item-row-info">
-        <div class="item-row-title">${a.title}</div>
-        <div class="item-row-meta"><span class="status-badge badge-article">${a.tag}</span> &nbsp;${a.year} &nbsp;·&nbsp; <a href="${a.url}" target="_blank" style="color:var(--neon-cyan);font-size:0.6rem;">${a.url.length>50?a.url.substring(0,50)+"...":a.url}</a></div>
+        <div class="item-row-title">${escapeHtml(a.title)}</div>
+        <div class="item-row-meta"><span class="status-badge badge-article">${escapeHtml(a.tag)}</span> &nbsp;${escapeHtml(a.year)} &nbsp;·&nbsp; <a href="${safeUrl}" target="_blank" rel="noopener" style="color:var(--neon-cyan);font-size:0.6rem;">${escapeHtml(urlText)}</a></div>
       </div>
       <div class="item-row-actions">
         <button class="admin-btn" style="padding:6px 14px;font-size:0.62rem;border-color:var(--neon-cyan);color:var(--neon-cyan);" onclick="editArticle(${a.id})">✏ Edit</button>
         <button class="admin-btn danger" style="padding:6px 14px;font-size:0.62rem;" onclick="deleteArticle(${a.id})">✕ Del</button>
       </div>
-    </div>`).join("") || "<div style=\"color:var(--text-muted);font-size:0.82rem;padding:14px;\">No articles yet. Add your first article above.</div>";
+    </div>`;
+  }).join("") || "<div style=\"color:var(--text-muted);font-size:0.82rem;padding:14px;\">No articles yet. Add your first article above.</div>";
   updateAdminStats();
 }
 
@@ -1410,17 +1585,23 @@ function editArticle(id) {
 }
 
 function saveArticle() {
-  const title = document.getElementById("af-title").value.trim();
+  const title = sanitizeText(document.getElementById("af-title").value, 140);
   const url = document.getElementById("af-url").value.trim();
+  const tag = sanitizeText(document.getElementById("af-tag").value, 40) || "Article";
+  const year = sanitizeText(document.getElementById("af-year").value, 4) || new Date().getFullYear().toString();
+  const excerpt = sanitizeText(document.getElementById("af-excerpt").value, 500);
   if (!title || !url) { alert("Title and URL are required."); return; }
+  if (!isSafeUrl(url)) { alert("Please enter a valid HTTPS URL."); return; }
+  if (!/^\d{4}$/.test(year)) { alert("Year must be 4 digits (e.g. 2026)."); return; }
+  if (!excerpt) { alert("Please add a short excerpt."); return; }
   const store = getStore();
   const art = {
     id: editingArticleId || Date.now(),
     title,
     url,
-    tag: document.getElementById("af-tag").value.trim() || "Article",
-    year: document.getElementById("af-year").value.trim() || new Date().getFullYear().toString(),
-    excerpt: document.getElementById("af-excerpt").value.trim()
+    tag,
+    year,
+    excerpt
   };
   if (editingArticleId) {
     const idx = store.articles.findIndex(x=>x.id===editingArticleId);
@@ -1446,30 +1627,141 @@ function deleteArticle(id) {
 }
 
 // ══════════════════════════════════
+// RESUME REQUESTS
+// ══════════════════════════════════
+function submitResumeRequest(e) {
+  e.preventDefault();
+  const name = sanitizeText(document.getElementById("rr-name").value, 80);
+  const email = sanitizeText(document.getElementById("rr-email").value, 120).toLowerCase();
+  if (!name || !isValidEmail(email)) {
+    alert("Please provide a valid name and email.");
+    return;
+  }
+  const store = getStore();
+  store.resumeRequests.unshift({
+    id: Date.now(),
+    name,
+    email,
+    status: "pending",
+    createdAt: new Date().toISOString()
+  });
+  saveStore(store);
+  const msg = document.getElementById("resume-msg");
+  msg.style.display = "block";
+  e.target.reset();
+  setTimeout(()=>msg.style.display="none", 5000);
+  updateAdminStats();
+}
+
+function renderAdminResumeRequests() {
+  const store = getStore();
+  const list = document.getElementById("admin-resume-requests-list");
+  if (!list) return;
+  list.innerHTML = store.resumeRequests.map(r => {
+    const created = new Date(r.createdAt).toLocaleString();
+    const statusBadge = r.status === "approved"
+      ? "<span class=\"status-badge badge-done\">Approved</span>"
+      : "<span class=\"status-badge badge-wip\">Pending</span>";
+    return `
+    <div class="item-row">
+      <div class="item-row-info">
+        <div class="item-row-title">${escapeHtml(r.name)} · ${escapeHtml(r.email)}</div>
+        <div class="item-row-meta">${statusBadge} &nbsp; Requested: ${escapeHtml(created)}</div>
+      </div>
+      <div class="item-row-actions">
+        <button class="admin-btn" style="padding:6px 14px;font-size:0.62rem;border-color:var(--neon-cyan);color:var(--neon-cyan);" onclick="approveResumeRequest(${r.id})">Approve</button>
+        <button class="admin-btn danger" style="padding:6px 14px;font-size:0.62rem;" onclick="deleteResumeRequest(${r.id})">Delete</button>
+      </div>
+    </div>`;
+  }).join("") || "<div style=\"color:var(--text-muted);font-size:0.82rem;padding:14px;\">No resume requests yet.</div>";
+}
+
+function approveResumeRequest(id) {
+  const store = getStore();
+  const req = store.resumeRequests.find(x=>x.id===id);
+  if (!req) return;
+  req.status = "approved";
+  req.approvedAt = new Date().toISOString();
+  saveStore(store);
+  renderAdminResumeRequests();
+  updateAdminStats();
+  const subject = encodeURIComponent("Your requested resume");
+  const body = encodeURIComponent(`Hi ${req.name},\n\nThanks for your interest. Please find my resume attached.\n\nBest regards,\nSanjay Sathiyanathan`);
+  window.location.href = `mailto:${encodeURIComponent(req.email)}?subject=${subject}&body=${body}`;
+  showToast("Request approved. Email draft opened.");
+}
+
+function deleteResumeRequest(id) {
+  if (!confirm("Delete this resume request?")) return;
+  const store = getStore();
+  store.resumeRequests = store.resumeRequests.filter(x=>x.id!==id);
+  saveStore(store);
+  renderAdminResumeRequests();
+  updateAdminStats();
+}
+
+function trackSiteView() {
+  if (sessionStorage.getItem(VISIT_SESSION_KEY)) return;
+  sessionStorage.setItem(VISIT_SESSION_KEY, "1");
+  const current = Number(localStorage.getItem(VISIT_COUNT_KEY) || "0");
+  localStorage.setItem(VISIT_COUNT_KEY, String(current + 1));
+}
+
+// ══════════════════════════════════
 // ADMIN — SETTINGS & LINKEDIN
 // ══════════════════════════════════
 function saveSettings() {
   const store = getStore();
+  const linkedin = document.getElementById("s-linkedin").value.trim();
+  if (linkedin && !isSafeUrl(linkedin)) {
+    alert("LinkedIn URL must be a valid HTTPS URL.");
+    return;
+  }
+
+  const currentPwd = document.getElementById("s-current-pwd").value.trim();
+  const newPwd = document.getElementById("s-new-pwd").value.trim();
+  const confirmPwd = document.getElementById("s-confirm-pwd").value.trim();
+  const wantsPasswordChange = currentPwd || newPwd || confirmPwd;
+
+  if (wantsPasswordChange) {
+    if (currentPwd !== getAdminPwd()) {
+      alert("Current admin password is incorrect.");
+      return;
+    }
+    if (newPwd !== confirmPwd) {
+      alert("New password and confirmation do not match.");
+      return;
+    }
+    if (!isStrongPassword(newPwd)) {
+      alert("Password must be at least 10 chars and include upper, lower, number, and symbol.");
+      return;
+    }
+    localStorage.setItem(ADMIN_PWD_KEY, newPwd);
+    document.getElementById("s-current-pwd").value = "";
+    document.getElementById("s-new-pwd").value = "";
+    document.getElementById("s-confirm-pwd").value = "";
+  }
+
   store.settings = {
     ...(store.settings || {}),
-    name: document.getElementById("s-name").value,
-    title: document.getElementById("s-title").value,
-    email: document.getElementById("s-email").value,
-    phone: document.getElementById("s-phone").value,
-    location: document.getElementById("s-location").value,
-    linkedin: document.getElementById("s-linkedin").value,
+    name: sanitizeText(document.getElementById("s-name").value, 80),
+    title: sanitizeText(document.getElementById("s-title").value, 90),
+    email: sanitizeText(document.getElementById("s-email").value, 120),
+    phone: sanitizeText(document.getElementById("s-phone").value, 40),
+    location: sanitizeText(document.getElementById("s-location").value, 80),
+    linkedin,
     status: document.getElementById("s-status").value,
-    summary: document.getElementById("s-summary").value
+    summary: sanitizeText(document.getElementById("s-summary").value, 500)
   };
-  const newPwd = document.getElementById("s-pwd").value.trim();
-  if (newPwd) localStorage.setItem(ADMIN_PWD_KEY, newPwd);
   saveStore(store);
-  showToast("Settings saved!");
+  showToast(wantsPasswordChange ? "Settings + password updated!" : "Settings saved!");
 }
 
 function saveLinkedIn() {
   const profileUrl = document.getElementById("li-profile-url").value.trim();
   const articlesUrl = document.getElementById("li-articles-url").value.trim();
+  if (profileUrl && !isSafeUrl(profileUrl)) { alert("Profile URL must be HTTPS."); return; }
+  if (articlesUrl && !isSafeUrl(articlesUrl)) { alert("Articles URL must be HTTPS."); return; }
   const store = getStore();
   store.settings.linkedin = profileUrl;
   store.settings.articlesUrl = articlesUrl;
@@ -1492,8 +1784,12 @@ function updateAdminStats() {
   const store = getStore();
   const sp = document.getElementById("stat-projects");
   const sa = document.getElementById("stat-articles");
+  const sv = document.getElementById("stat-views");
+  const sr = document.getElementById("stat-resume-requests");
   if (sp) sp.textContent = store.projects.length;
   if (sa) sa.textContent = store.articles.length;
+  if (sv) sv.textContent = Number(localStorage.getItem(VISIT_COUNT_KEY) || "0");
+  if (sr) sr.textContent = store.resumeRequests.length;
 }
 
 function exportData() {
@@ -1567,11 +1863,18 @@ if (firstStat) cntIo.observe(firstStat);
 
 // Keyboard shortcuts
 document.addEventListener("keydown", e => {
+  if (adminLoggedIn && document.getElementById("admin-panel").classList.contains("open")) resetAdminIdleTimer();
   if (e.ctrlKey && e.shiftKey && e.key === "A") { e.preventDefault(); openAdmin(); }
   if (e.key === "Escape") closeAdmin();
   if (e.ctrlKey && e.key === "s" && document.getElementById("admin-panel").classList.contains("open")) {
     e.preventDefault(); saveAllData();
   }
+});
+
+["click","mousemove","touchstart"].forEach(evt => {
+  document.addEventListener(evt, () => {
+    if (adminLoggedIn && document.getElementById("admin-panel").classList.contains("open")) resetAdminIdleTimer();
+  }, { passive:true });
 });
 
 // Contact form
@@ -1587,6 +1890,7 @@ function handleSubmit(e) {
 // INIT — load from localStorage
 // ══════════════════════════════════
 window.addEventListener("DOMContentLoaded", () => {
+  trackSiteView();
   const store = getStore();
   const storedPhoto = (store.settings && store.settings.photo) || DEFAULT_HERO_PHOTO;
   applyProfilePhoto(storedPhoto);
